@@ -1,0 +1,68 @@
+---
+
+---
+
+<button
+    aria-hidden="true"
+    class="flex items-center w-10 h-10 transition duration-100 rounded-full shadow-md cursor-pointer mr-auto ml-4 md:mx-0"
+    id="themeToggleBtn"
+>
+    <!-- Below is your switch GUI -->
+    <svg
+        class="w-full h-full fill-black dark:fill-white"
+        id="svg"
+        version="1.1"
+        viewBox="0 0 300 299.9339960530828"
+        xmlns="http://www.w3.org/2000/svg"
+        ><g
+            xmlns="http://www.w3.org/2000/svg"
+            id="svg"
+            fill-rule="evenodd"
+            stroke="none"
+            stroke-width="1"
+            stroke-linecap="butt"
+            stroke-linejoin="miter"
+            stroke-miterlimit="10"
+            stroke-dasharray=""
+            stroke-dashoffset="0"
+            font-family="none"
+            font-weight="none"
+            font-size="none"
+            text-anchor="none"
+            style="mix-blend-mode: normal"
+            ><path
+                d="M140.96489,0.24184c-15.0411,0.80911 -31.8438,4.59988 -47.23528,10.656c-7.08224,2.78688 -18.05694,8.48707 -25.05026,13.01082c-33.32921,21.56013 -56.81571,55.44644 -65.23081,94.11546c-4.18699,19.24004 -4.56182,38.69764 -1.1217,58.21054c6.40955,36.35588 26.17196,69.15884 55.4206,91.99182c17.62321,13.75769 38.68208,23.69044 59.75402,28.18362c19.3573,4.12753 37.6304,4.61905 56.80598,1.52764c41.98633,-6.76854 79.21329,-31.3395 102.30078,-67.52144c13.63043,-21.36118 21.57985,-46.1033 23.14056,-72.02297c1.38344,-22.97802 -2.97999,-47.30169 -12.27562,-68.43253c-13.05944,-29.68598 -34.96467,-54.07217 -63.1519,-70.30471c-4.13225,-2.37955 -13.97831,-7.15337 -18.01248,-8.73297c-21.69044,-8.49346 -42.57149,-11.9069 -65.3439,-10.68129M159.859,21.18569c20.88494,1.78466 39.63262,7.85161 57.44616,18.59042c28.24309,17.0261 49.11413,45.12803 57.70123,77.69231c6.13447,23.26254 5.45901,48.05162 -1.95554,71.77456c-6.52597,20.87966 -19.43509,41.03746 -35.8274,55.94435c-13.7413,12.49651 -28.03386,20.9783 -45.40616,26.94634c-27.23336,9.35536 -56.41087,9.35536 -83.64423,0c-7.16781,-2.46235 -14.02221,-5.434 -19.68989,-8.53625c-16.19837,-8.86634 -30.37479,-21.07221 -41.44285,-35.68181c-16.99359,-22.4312 -26.24753,-49.90963 -26.24753,-77.93821c0,-25.21725 7.50819,-50.05078 21.55207,-71.28526c10.62377,-16.06305 24.26865,-29.22613 40.34032,-38.91659c17.62848,-10.62905 36.4812,-16.77019 57.02938,-18.5768c5.56404,-0.4893 14.50318,-0.49514 20.14446,-0.01306M145.48197,33.26986c-9.66406,1.75826 -17.44538,9.24144 -19.83993,19.07972c-0.70964,2.91636 -0.63712,8.47456 0.1506,11.4929c2.25812,8.65573 8.68407,15.28478 17.4087,17.95941c2.2559,0.69158 2.88746,0.76243 6.79382,0.76243c3.90636,0 4.53792,-0.07085 6.79382,-0.76243c8.78854,-2.69408 15.29117,-9.44928 17.42204,-18.09834c0.77105,-3.13003 0.83134,-8.42177 0.12948,-11.35397c-2.13392,-8.91524 -8.30924,-15.54319 -17.12112,-18.37564c-2.0339,-0.65379 -2.92136,-0.77216 -6.39066,-0.85162c-2.21589,-0.05057 -4.62183,0.01584 -5.34676,0.14754"
+            ></path></g
+        ></svg
+    >
+</button>
+
+<script>
+    const toggle = document.getElementById("themeToggleBtn");
+    toggle?.addEventListener("click", toggleTheme);
+    const html = document.querySelector("html");
+    let isDarkmode = false;
+
+    function toggleTheme() {
+        isDarkmode = !isDarkmode;
+        localStorage.setItem("isDarkmode", isDarkmode.toString());
+        switchTheme();
+    }
+
+    function switchTheme() {
+        if (!toggle) return;
+        if (isDarkmode) {
+            html?.classList.add("dark");
+            // Transform the icon however you like
+            toggle.classList.remove("-rotate-45");
+            toggle.classList.add("rotate-45");
+        } else {
+            html?.classList.remove("dark");
+            // Transform the icon however you like
+            toggle.classList.add("-rotate-45");
+            toggle.classList.remove("rotate-45");
+        }
+    }
+
+    switchTheme();
+</script>
