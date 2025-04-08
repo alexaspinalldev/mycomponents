@@ -41,11 +41,11 @@
     const toggle = document.getElementById("themeToggleBtn");
     toggle?.addEventListener("click", toggleTheme);
     const html = document.querySelector("html");
-    let isDarkmode = false;
+    let isDarkmode = false; // Defaults to light mode
 
     function toggleTheme() {
         isDarkmode = !isDarkmode;
-        localStorage.setItem("isDarkmode", isDarkmode.toString());
+        localStorage.setItem("isDarkmode", isDarkmode.toString()); // As it stands you don't actually refence this memory item yet
         switchTheme();
     }
 
