@@ -5,7 +5,6 @@ import { useEffect, useRef } from "react";
 // Use this instead of the generic component. It flexes to fill space rather than require a fixed height 
 // It must be used inside a flex container providing the vertical space for it to fill.
 
-
 export function ScrollAreaFlex({
     children,
     className,
@@ -22,29 +21,37 @@ export function ScrollAreaFlex({
         const container = scrollAreaContainer.current;
         const scrollContent = scrollArea.current;
 
+        let AnimationFrame: number | null = null;
+
         const updateHeight = () => {
-            const newHeight = container.clientHeight;
-            scrollContent.style.height = `${newHeight}px`;
+            // Cancel any existing frame to avoid stacking calls
+            if (AnimationFrame) cancelAnimationFrame(AnimationFrame);
+
+            AnimationFrame = requestAnimationFrame(() => {
+                container.style.height = "0px"; // Set outer container to 0 to allow it to resize smaller than the child
+
+                const newHeight = container.clientHeight;
+                scrollContent.style.height = `${newHeight}px`;
+            });
         };
 
         // Set initial height
         updateHeight();
 
-        // Observe for size changes
         const resizeObserver = new ResizeObserver(() => {
-            container.style.height = `0px`; // Allow shrinking
             updateHeight();
         });
 
         resizeObserver.observe(container);
 
-        return () => resizeObserver.disconnect();
+        return () => {
+            resizeObserver.disconnect();
+            if (AnimationFrame) cancelAnimationFrame(AnimationFrame);
+        };
     }, []);
-
 
     return (
         <div className="grow overflow-hidden" ref={scrollAreaContainer}>
-            {/* ^Used to explicity set the height of the ScrollArea */}
             <ScrollArea ref={scrollArea} className={cn(className, "h-full py-2")}>
                 {children}
                 <ScrollBar orientation="vertical" forceMount className="opacity-100" />
